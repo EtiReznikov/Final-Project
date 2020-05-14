@@ -19,7 +19,7 @@ from tkinter import filedialog
 from tkinter import *
 import skimage.io as io
 import tensorflow as tf
-from src.util import renderer as vis_util
+from Final_Project.src.util import renderer as vis_util
 from src.util import image as img_util
 from src.util import openpose as op_util
 import src.config
