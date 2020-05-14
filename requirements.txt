@@ -1,0 +1,8 @@
+# python requirements
+scipy
+matplotlib
+scikit-image
+deepdish>=0.3
+opencv-python
+absl-py
+ipdb
