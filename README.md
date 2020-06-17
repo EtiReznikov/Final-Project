@@ -2,6 +2,7 @@
 A final project for a B.Sc at computer science
 
 Instructor: DR. Gil Ben Artzi
+
 Presenters:  Yaara Goldenberg, Ester Reznikov
 
  ## The project goal:
