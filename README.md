@@ -19,8 +19,11 @@ Presenters:  Yaara Goldenberg, Ester Reznikov
  ## Methods:
  There are 2 approaches for human body pose estimation- 2D and 3D.
  Today, the main methods are:
+ 
  OpenPose- can provide real-time 2D pose estimation using a nonparametric representation to learn the body parts in an image dataset. 
+ 
  SMPL- is a skinned vertex based model that accurately represents a wide variety of body shapes in natural human poses.
+ 
  The selected approach is 3D human body pose estimation using HMR- an end-to-end framework for reconstructing a full 3D mesh of a human body from a single RGB image, 
  that use the generative human body model SMPL, because 3D human model is easier for understanding target posture than 2D human model.
  
