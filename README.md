@@ -31,4 +31,4 @@ Presenters:  Yaara Goldenberg, Ester Reznikov
  normalize the characters so that the target character matches the source character so  that the difference between poses is 
  understandable to the user. The next step will be to give feedback using the “do as I do” motion transfer method.
  
- ![](Training-Pose/examples/example.gif)
+ ![](examples/example.gif)
