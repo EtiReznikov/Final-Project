@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from hmr2convert import hmr2convert
+from HMR.hmr2convert import hmr2convert
 
 
 org_path, dest_path= 'squat_fast.mp4', 'squat_slow.mp4'
