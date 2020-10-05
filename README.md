@@ -31,10 +31,12 @@ Presenters:  Yaara Goldenberg, Ester Reznikov
  We reconstructed a model called visual feedback that gives feedback on user movement using HMR and SMPL methods.
  The input of the system is a video of a person performing an exercise and the output is a video in which the person is
  presented as a 3D character with comparison to a 3D character who performs the exercise correctly.
+ 
  We improved the method by using DTW (dynamic time warping) so that the model is not only suitable for static exercises, and 
  normalize the characters so that the target character matches the source character so  that the difference between poses is 
  understandable to the user. 
+ 
  To present a useful visual feedback for the use we applied arrows on the HMR model to compere the main joints for the current exercises between source and
  target. For each exercise there are main joints that effects on the way that the user preform the pose.
  
- ![](examples/example.gif)
+ ![](examples/squat.jpeg)
