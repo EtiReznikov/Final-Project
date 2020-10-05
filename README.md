@@ -33,6 +33,9 @@ Presenters:  Yaara Goldenberg, Ester Reznikov
  presented as a 3D character with comparison to a 3D character who performs the exercise correctly.
  We improved the method by using DTW (dynamic time warping) so that the model is not only suitable for static exercises, and 
  normalize the characters so that the target character matches the source character so  that the difference between poses is 
- understandable to the user. The next step will be to give feedback using the “do as I do” motion transfer method.
+ understandable to the user. 
+ To present a useful visual feedback for the user bywe applied arrows on the HMR model to compere the main joints for the current exercises between source and
+ target. As mention, for each exercise there are main joints that effects on the way that the user preform the pose.
+ The next step will be to give feedback using the “do as I do” motion transfer method.
  
- ![](examples/example1.gif)
+ ![](examples/example.gif)
