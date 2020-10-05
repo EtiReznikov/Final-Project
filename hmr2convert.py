@@ -22,6 +22,7 @@ from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
 import math
+from exercise import Exercise
 class hmr2convert:
 
     def __init__(self, master=None):
@@ -36,7 +37,7 @@ class hmr2convert:
 
 
     def visualize_mesh(self, img_org, img_dest, proc_param_org, proc_param_dest, joints_org, joints_dest, verts_org,
-                       verts_dest, cam_org, cam_dest):
+                       verts_dest, cam_org, cam_dest, exercise):
         """
          Visualize two renderers mesh.
         """
@@ -59,6 +60,167 @@ class hmr2convert:
             color_id=0,
             img_size=img_dest.shape[:2])
 
+        color_red = (255, 0, 0)
+        color_blue = (0, 0, 255)
+        thickness = 5
+        radius = max(4, (np.mean(img_org.shape[:2]) * 0.01).astype(int))
+
+
+        if (exercise == Exercise.squat):
+            start_point = []
+            start_point.append(int(joints_orig_dest[1, 0]))
+            start_point.append(int(joints_orig_dest[1, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[1, 0]))
+            end_point.append(int(joints_orig_org[1, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(rend_img_overlay_dest, end_point, radius, color_blue, -1)
+
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                    color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[4, 0]))
+            start_point.append(int(joints_orig_dest[4, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[4, 0]))
+            end_point.append(int(joints_orig_org[4, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                       color_red, thickness)
+
+            org_img_copy= rend_img_overlay_org
+            output = np.concatenate((arrow_img, org_img_copy), axis=1)
+
+        elif (exercise == Exercise.jumping_jacks):
+            start_point = []
+            start_point.append(int(joints_orig_dest[1, 0]))
+            start_point.append(int(joints_orig_dest[1, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[1, 0]))
+            end_point.append(int(joints_orig_org[1, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(rend_img_overlay_dest, end_point, radius, color_blue, -1)
+
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[4, 0]))
+            start_point.append(int(joints_orig_dest[4, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[4, 0]))
+            end_point.append(int(joints_orig_org[4, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+            start_point = []
+            start_point.append(int(joints_orig_dest[7, 0]))
+            start_point.append(int(joints_orig_dest[7, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[7, 0]))
+            end_point.append(int(joints_orig_org[7, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[10, 0]))
+            start_point.append(int(joints_orig_dest[10, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[10, 0]))
+            end_point.append(int(joints_orig_org[10, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            org_img_copy = rend_img_overlay_org
+            output = np.concatenate((arrow_img, org_img_copy), axis=1)
+        elif (exercise == Exercise.lateral_raises):
+            start_point = []
+            start_point.append(int(joints_orig_dest[7, 0]))
+            start_point.append(int(joints_orig_dest[7, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[7, 0]))
+            end_point.append(int(joints_orig_org[7, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(rend_img_overlay_dest, end_point, radius, color_blue, -1)
+
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[10, 0]))
+            start_point.append(int(joints_orig_dest[10, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[10, 0]))
+            end_point.append(int(joints_orig_org[10, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[6, 0]))
+            start_point.append(int(joints_orig_dest[6, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[6, 0]))
+            end_point.append(int(joints_orig_org[6, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            start_point = []
+            start_point.append(int(joints_orig_dest[11, 0]))
+            start_point.append(int(joints_orig_dest[11, 1]))
+            start_point = tuple(start_point)
+
+            end_point = []
+            end_point.append(int(joints_orig_org[11, 0]))
+            end_point.append(int(joints_orig_org[11, 1]))
+            end_point = tuple(end_point)
+
+            arrow_img = cv2.circle(arrow_img, end_point, radius, color_blue, -1)
+            arrow_img = cv2.arrowedLine(arrow_img, start_point, end_point,
+                                        color_red, thickness)
+
+            org_img_copy = rend_img_overlay_org
+
+            output = np.concatenate((arrow_img, org_img_copy), axis=1)
+
         Image3d_org=crop_img(rend_img_overlay_org, joints_org)
         Image3d_dest=crop_img(rend_img_overlay_dest, joints_dest)
 
@@ -68,13 +230,17 @@ class hmr2convert:
 
 
         mask = Image.new("L", Image3d_dest.size, 128)
-        im = Image.composite(Image3d_dest, Image3d_org, mask)
 
-        return im
+        im = Image.composite(Image3d_dest, Image3d_org, mask)
+        im_np= np.asarray(im)
+        print(im_np.shape)
+        print(output.shape)
+        output = np.concatenate((im_np, output), axis=1)
+        return output
 
 
     def visualize_arroweds(self, img_org, img_dest, proc_param_org, proc_param_dest, joints_org, joints_dest, verts_org,
-                           verts_dest, cam_org, cam_dest):
+                           verts_dest, cam_org, cam_dest, exercise):
 
         cam_for_render_org, vert_shifted_org, joints_orig_org = vis_util.get_original(
             proc_param_org, verts_org, cam_org, joints_org, img_size=img_org.shape[:2])
@@ -103,9 +269,6 @@ class hmr2convert:
 
         skel_img = cv2.circle(img_org, end_point, radius, color_blue, -1)
 
-        # skel_img = cv2.arrowedLine(skel_img, start_point, end_point,
-        #                         color_red, thickness)
-
         start_point = []
         start_point.append(int(joints_orig_org[4, 0]))
         start_point.append(int(joints_orig_org[4, 1]))
@@ -117,18 +280,10 @@ class hmr2convert:
         end_point = tuple(end_point)
 
 
-        # Using cv2.arrowedLine() method
-        # Draw a diagonal arrow line
-
         skel_img = cv2.circle(skel_img, end_point, radius, color_blue, -1)
         skel_img = cv2.arrowedLine(skel_img, start_point, end_point,
                                    color_red, thickness)
-
-
-        # Using cv2.arrowedLine() method
-        # Draw a diagonal arrow line
         skel_img = cv2.circle(skel_img, start_point, radius, color_blue, -1)
-        # skel_img = cv2.circle(skel_img, end_point, radius, color_blue, -1)
 
         output = np.concatenate((skel_img, img_dest), axis=1)
 
@@ -162,36 +317,47 @@ class hmr2convert:
         sess = tf.Session()
         self.model = RunModel(self.config, sess=sess)
 
-    def convert3d(self,img_org, img_dest, flag):
+    def convert3d(self,img_org, img_dest, flag, exercise):
 
         #Source image parameters
-        img1, proc_param_org, input_img_org, joints_org, verts_org, cams_org, joints3d_org, theta_org = self.get_parmeters(img_org)
+        input_img_org, proc_param_org, img1 = self.preprocess_image(img_org)
+        # Add batch dimension: 1 x D x D x 3
+        input_img_org = np.expand_dims(input_img_org, 0)
+        joints_org, verts_org, cams_org, joints3d_org, theta_org = self.model.predict(
+            input_img_org, get_theta=True)
 
-        #Source image parameters
-        img2, proc_param_dest, input_img_dest, joints_dest, verts_dest, cams_dest, joints3d_dest, theta_dest = self.model.predict(
+        # target image parameters
+        input_img_dest, proc_param_dest, img2 = self.preprocess_image(img_dest)
+        # Add batch dimension: 1 x D x D x 3
+        input_img_dest = np.expand_dims(input_img_dest, 0)
+        joints_dest, verts_dest, cams_dest, joints3d_dest, theta_dest = self.model.predict(
             input_img_dest, get_theta=True)
-
 
 
         if flag: #return mesh - 3D visual feedback
             return self.visualize_mesh(img1, img2, proc_param_org, proc_param_dest, joints_org[0], joints_dest[0],
-                                       verts_org[0], verts_dest[0], cams_org[0], cams_dest[0])
+                                       verts_org[0], verts_dest[0], cams_org[0], cams_dest[0], exercise)
         else:  #return 2D visual feedback
             return self.visualize_arroweds(img1, img2, proc_param_org, proc_param_dest, joints_org[0], joints_dest[0],
-                                           verts_org[0], verts_dest[0], cams_org[0], cams_dest[0])
+                                           verts_org[0], verts_dest[0], cams_org[0], cams_dest[0], exercise)
 
 
-    def get_parmeters(self,img):
-        "return the parameters of given image"
+
+    def get_joints3d(self,img):
+        "return the 3D joints for given image"
         input_img, proc_param, img = self.preprocess_image( img)
         # Add batch dimension: 1 x D x D x 3
         input_img = np.expand_dims(input_img, 0)
+
         # Theta is the 85D vector holding [camera, pose, shape]
         # where camera is 3D [s, tx, ty]
         # pose is 72D vector holding the rotation of 24 joints of SMPL in axis angle format
         # shape is 10D shape coefficients of SMPL
-        return   img, proc_param, input_img, self.model.predict(input_img, get_theta=True)
+        joints, verts, cams, joints3d, theta = self.model.predict(
+            input_img, get_theta=True)
 
+        joints3d=np.reshape(joints3d, (19,3))
+        return joints3d
 
 
 def get_hegiht(joints):
@@ -266,6 +432,10 @@ def move_img(img_dest, joints_org, joints_dest):
         img_dest = cv2.copyMakeBorder( img_dest, t_x, 0, t_y, 0, cv2.BORDER_CONSTANT)
         img_dest = img_dest[ 0:im2_dest_shape[0]-t_x,  0:im2_dest_shape[1]-t_y, :]
     return img_dest
+
+
+
+
 
 def drawArrow(A, B):
     plt.arrow(A[0], A[1], B[0] - A[0], B[1] - A[1],

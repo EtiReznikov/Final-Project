@@ -1,12 +1,21 @@
 # from dtw import dtw
+import sys
 import numpy as np
 import cv2
 from dtaidistance import dtw
-from HMR.hmr2convert import hmr2convert
+from hmr2convert import hmr2convert
+
 import timeit
 
-org_path='videos/Bar_cut.mp4'
-dest_path='videos/bar_bad.mp4'
+org_path_squat='videos/squat_good.mp4'
+dest_path_squat='videos/squat_bad.mp4'
+
+org_path_jumping_jacks='videos/jumping_jacks_good.mp4'
+dest_path_jumping_jacks='videos/jumping_jacks_bad.mp4'
+
+org_path_lateral_raises='videos/lateral_raises_good.mp4'
+dest_path_lateral_raises='videos/lateral_raises_bad.mp4'
+
 
 hmr = hmr2convert()
 hmr.initialzation()
@@ -93,7 +102,7 @@ def get_jumping_jacks_angles(joints3d):
 
     return  angles
 
-def get_Lateral_Raises_angles(joints3d):
+def get_lateral_raises_angles(joints3d):
     """
     return the average of the armpits angles to each frame
     """
@@ -117,7 +126,7 @@ def dtw_path(seq1, seq2):
     return path
 
 
-def dtw_on_videos(dtw_array, org_path, dest_path, is_mesh):
+def dtw_on_videos(dtw_array, org_path, dest_path, is_mesh, exercise):
     """
     change the original videos such that the pace of both exercise it the target and the source will be similar.
     We did that by duplicate the frames which the pose is preform faster accroding to dtw path.
@@ -130,12 +139,12 @@ def dtw_on_videos(dtw_array, org_path, dest_path, is_mesh):
         height, width, layers = np.shape(frame)
         i += 1
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    if is_mesh:
-        out = cv2.VideoWriter('output.avi', fourcc, 1, (width, height))
-    else:
-        out = cv2.VideoWriter('output.avi', fourcc, 1, (2*width, height))
+    # if is_mesh:
+    #     out = cv2.VideoWriter('output.avi', fourcc, 1, (width, height))
+    # else:
+    #     out = cv2.VideoWriter('output.avi', fourcc, 1, (2*width, height))
 
-
+    out = cv2.VideoWriter('output.avi', fourcc, 1, (3*width, height))
     paths = [org_path, dest_path]
     caps = [cv2.VideoCapture(i) for i in paths]
 
@@ -195,7 +204,7 @@ def dtw_on_videos(dtw_array, org_path, dest_path, is_mesh):
         if len(frames)==2:
             frame_org = cv2.cvtColor(frames[0], cv2.COLOR_BGR2RGB)
             frame_dest = cv2.cvtColor(frames[1], cv2.COLOR_BGR2RGB)
-            img = hmr.convert3d(frame_org, frame_dest, is_mesh)
+            img = hmr.convert3d(frame_org, frame_dest, is_mesh, exercise)
             img = np.array(img)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -222,23 +231,49 @@ def angle_between(v1, v2):
     v2_u = unit_vector(v2)
     return np.arccos(np.clip(np.dot(v1_u, v2_u), -1.0, 1.0))
 
+
+from exercise import Exercise
 def main():
+    exercise = Exercise.squat
     start = timeit.default_timer()
 
-    joints_org = get_joints(org_path)
-    joints_org = np.array(joints_org)
-    # angles_org= get_squat_angles(joints_org)
-    angles_org=get_jumping_jacks_angles(joints_org)
-    # angles_org=get_Lateral_Raises_angles(joints_org)
-    joints_dest = get_joints(dest_path)
-    joints_dest = np.array(joints_dest)
-    # angles_dest= get_squat_angles(joints_dest)
-    angles_dest=get_jumping_jacks_angles(joints_dest)
-    # angles_dest= get_Lateral_Raises_angles(joints_dest)
+    if (exercise == Exercise.squat):
+        org_path=org_path_squat
+        dest_path=dest_path_squat
+        joints_org = get_joints(org_path)
+        joints_org = np.array(joints_org)
+
+        joints_dest = get_joints(dest_path)
+        joints_dest = np.array(joints_dest)
+
+        angles_org= get_squat_angles(joints_org)
+        angles_dest = get_squat_angles(joints_dest)
+    elif (exercise == Exercise.jumping_jacks):
+        org_path=org_path_jumping_jacks
+        dest_path=dest_path_jumping_jacks
+        joints_org = get_joints(org_path)
+        joints_org = np.array(joints_org)
+
+        joints_dest = get_joints(dest_path)
+        joints_dest = np.array(joints_dest)
+
+        angles_org=get_jumping_jacks_angles(joints_org)
+        angles_dest=get_jumping_jacks_angles(joints_dest)
+    elif (exercise == Exercise.lateral_raises):
+        org_path=org_path_lateral_raises
+        dest_path=dest_path_lateral_raises
+        joints_org = get_joints(org_path)
+        joints_org = np.array(joints_org)
+
+        joints_dest = get_joints(dest_path)
+        joints_dest = np.array(joints_dest)
+
+        angles_org=get_lateral_raises_angles(joints_org)
+        angles_dest= get_lateral_raises_angles(joints_dest)
     dtw_array= dtw_path(angles_org, angles_dest)
 
-    is_mesh= False
-    dtw_on_videos (dtw_array, org_path, dest_path, is_mesh)
+    is_mesh= True
+    dtw_on_videos (dtw_array, org_path, dest_path, is_mesh,exercise)
     stop = timeit.default_timer()
 
     print('Time: ', stop - start)
