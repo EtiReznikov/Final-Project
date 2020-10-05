@@ -38,4 +38,4 @@ Presenters:  Yaara Goldenberg, Ester Reznikov
  target. As mention, for each exercise there are main joints that effects on the way that the user preform the pose.
  The next step will be to give feedback using the “do as I do” motion transfer method.
  
- ![](examples/example1.gif)
+ ![](examples/example.gif)
